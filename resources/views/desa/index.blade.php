@@ -1,84 +1,70 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Desa</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rekam Medis - Kelola Data Pasien</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f8f9fa; padding-top: 50px; }
+        .card { border-radius: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .card-header { background-color: #007bff; color: white; border-radius: 15px 15px 0 0 !important; }
+    </style>
 </head>
-<body class="p-4">
+<body>
+
 <div class="container">
-    <h1 class="mb-4">Data Desa</h1>
-
-    @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
-
-    <div class="card mb-4">
-        <div class="card-body">
-            <form method="POST" action="{{ route('desa.store') }}">
-                <form action="{{ route('desa.store') }}" method="POST">
-    @csrf
-    <input type="text" name="nama_desa" placeholder="Nama Desa">
-    <button type="submit" class="btn btn-primary">Tambah Desa</button>
-                </form action="{{ route('desa.store') }}"
-                method="POST">
-                @csrf
-                <div class="mb-3">
-                <div class="row g-2">
-                    <div class="col-md-8">
-                    </div>
-                    <div class="col-md-4">
-                    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h4>Fitur Kelola Pasien (Desa & Jenis Kelamin)</h4>
                 </div>
-            </form>
-        </div>
-    </div>
-            @if(session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
+                <div class="card-body">
+
+                    <form action="#" method="POST">
+                        @csrf <div class="mb-4">
+                            <label class="form-label fw-bold">Jenis Kelamin</label>
+                            <div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="jenis_kelamin" id="laki" value="Laki-laki" required>
+                                    <label class="form-check-label" for="laki">Laki-laki</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="jenis_kelamin" id="perempuan" value="Perempuan">
+                                    <label class="form-check-label" for="perempuan">Perempuan</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="mb-4">
+                            <label for="desa" class="form-label fw-bold">Pilih Desa/Kelurahan</label>
+                            <select class="form-select" name="desa_id" id="desa" required>
+                                <option value="" selected disabled>-- Pilih Desa --</option>
+                                <option value="1">Desa Sukamaju</option>
+                                <option value="2">Desa Mekarsari</option>
+                                <option value="3">Desa Bojonggede</option>
+                                <option value="4">Desa Melati</option>
+                            </select>
+                            <div class="form-text">Pastikan memilih desa sesuai domisili pasien.</div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg">Simpan Data Pasien</button>
+                        </div>
+
+                    </form>
+
                 </div>
-            @endif
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">Daftar Desa</h5>
-            <div class="table-responsive">
-                <table class="table table-striped table-sm">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Nama Desa</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    @forelse($desa as $item)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $item->nama_desa ?? '-' }}</td>
-                            <td>
-                                <form action="{{ route('desa.destroy', $item->id) }}" method="POST"
-                                    onsubmit="return confirm('Hapus desa ini?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn btn-sm btn-danger">Hapus</button>
-                                </form>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="3" class="text-center">Belum ada data Desa.</td>
-                        </tr>
-                    @endforelse
-                    </tbody>
-                </table>
             </div>
-        </div>
-    </div>
 
-    <div class="mt-3">
-        <a href="{{ url('/') }}" class="btn btn-light">Kembali</a>
+            <p class="text-center mt-4 text-muted small">Semangat Rani! Deadline 10 April menanti 🚀</p>
+        </div>
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

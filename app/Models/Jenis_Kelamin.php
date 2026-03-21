@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Jenis_Kelamin extends Model
 {
-  protected $fillable = ['nama_jenis_kelamin'];
- use HasFactory;
+protected $table = 'jenis_kelamin';
+protected $fillable = ['nama_jenis_kelamin'];
+public $timestamps = false;
+use \Illuminate\Database\Eloquent\Factories\HasFactory;
 }
+
