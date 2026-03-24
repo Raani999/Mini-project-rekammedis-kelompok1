@@ -22,6 +22,9 @@
     {{-- Card Form Tambah --}}
     <div class="card mb-4 shadow-sm">
         <div class="card-body">
+                       <form action="{{ route('desa.store') }}" method="POST">  @csrf
+                        @csrf <div class="mb-4">
+                            <label class="form-label fw-bold">Jenis Kelamin</label>
             <h5 class="card-title mb-3">Tambah Jenis Kelamin</h5>
             <form method="POST" action="{{ route('jenis_kelamin.store') }}">
                 @csrf

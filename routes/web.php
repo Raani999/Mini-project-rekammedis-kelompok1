@@ -22,8 +22,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 Route::get('/', [DesaController::class, 'index']);
 Route::post('/desa', [DesaController::class, 'store'])->name('desa.store');
-Route::resource('desa', DesaController::class);
-Route::resource('jenis_kelamin', Jenis_KelaminController::class);
+Route::resource('/', DesaController::class);
 
 // return new class extends Migration {
 //     /**
