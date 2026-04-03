@@ -20,9 +20,13 @@ use App\Http\Controllers\KontakController;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-Route::get('/', [DesaController::class, 'index']);
-Route::post('/desa', [DesaController::class, 'store'])->name('desa.store');
-Route::resource('/', DesaController::class);
+Route::middleware(['auth'])->group(function () {
+    Route::get('/desa', [App\Http\Controllers\DesaController::class, 'index']);
+});
+Route::get('/desa', [DesaController::class, 'index']);
+Route::get('/desa', [DesaController::class, 'index'])->middleware('auth');
+Route::resource('/desa', DesaController::class);
+Route::resource('/pasien', PasienController::class);
 
 // return new class extends Migration {
 //     /**
@@ -44,7 +48,7 @@ Route::resource('/', DesaController::class);
 //     }
 // };
 // route:: get('/pasien', [PasienController::class, 'index'])->name('home');
-// route:: get('/', [PasienController::class, 'index'])->name('home');
+Route::get('/desa', [DesaController::class, 'index'])->name('home');
 //route:: post('/kontak', [KontakController::class, 'submit'])->name('kontak.submit');
 ////route:: get('/kontak', [KontakController::class, 'form'])->name('kontak.form');
 //route:: get('/', [KontakController::class, 'home'])->name('home');

@@ -9,14 +9,14 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-        Schema::create('jenis_kelamin', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama_jenis_kelamin');
-            $table->timestamps();
-        });
-    }
+public function up(): void
+{
+    Schema::create('jenis_kelamin', function (Blueprint $table) {
+        $table->id();
+        $table->string('deskripsi'); // Ini untuk 'Laki-laki' atau 'Perempuan'
+      //  $table->timestamps();
+    });
+}
 
     /**
      * Reverse the migrations.

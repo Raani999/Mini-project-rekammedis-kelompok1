@@ -7,8 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Desa extends Model
 {
-    protected $table = 'desa';
-    protected $fillable = ['nama_desa'];
-    protected $guarded = ['id'];
     use HasFactory;
+
+    // Kasih tahu Laravel kalau nama tabelnya 'desa' (bukan desas)
+    protected $table = 'desa';
+
+    // Kolom yang boleh diisi
+    protected $fillable = ['nama_desa'];
 }

@@ -6,18 +6,20 @@
     <title>Rekam Medis - Kelola Data Pasien</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body { background-color: #f0f2f5; padding-top: 50px; }
+        body { background-color: #f0f2f5; }
         .card { border: none; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
         .card-header { background-color: #007bff; color: white; border-radius: 15px 15px 0 0 !important; font-weight: bold; }
         .form-check-input:checked { background-color: #007bff; border-color: #007bff; }
+        .table thead { background-color: #e9ecef; }
     </style>
 </head>
 <body>
 
-<div class="container">
+<div class="container py-4">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
+        <div class="col-md-9">
+
+            <div class="card mb-4">
                 <div class="card-header p-3 text-center">
                     Tambah Data Pasien
                 </div>
@@ -31,6 +33,10 @@
 
                     <form action="{{ route('desa.store') }}" method="POST">
                         @csrf
+                        <div class="mb-4">
+                            <label for="nama" class="form-label fw-bold">Nama Pasien</label>
+                            <input type="text" class="form-control" name="nama" id="nama" placeholder="Masukkan nama lengkap" required>
+                        </div>
 
                         <div class="mb-4">
                             <label class="form-label fw-bold">Jenis Kelamin</label>
@@ -47,30 +53,53 @@
                         </div>
 
                         <div class="mb-4">
-                            <label for="desa" class="form-label fw-bold">Domisili Desa</label>
-                            <select class="form-select" name="desa_id" id="desa" required>
+                            <label for="desa_id" class="form-label fw-bold">Domisili Desa</label>
+                            <select class="form-select" name="desa_id" id="desa_id" required>
                                 <option value="" selected disabled>-- Pilih Desa/Kelurahan --</option>
-                                <option value="1">Desa Sukamaju</option>
-                                <option value="2">Desa Mekarsari</option>
-                                <option value="3">Desa Bojonggede</option>
-                                <option value="4">Desa Melati</option>
+                                @foreach($dataDesa as $item)
+                                    <option value="{{ $item->id }}">{{ $item->nama_desa }}</option>
+                                @endforeach
                             </select>
-                            <div class="form-text mt-2">Pilih lokasi sesuai KTP pasien saat ini.</div>
                         </div>
 
-                        <hr class="my-4">
-
                         <div class="d-flex justify-content-center gap-2">
-                            <button type="submit" class="btn btn-primary px-5 py-2 shadow-sm rounded-pill">
-                                Simpan Data Pasien
-                            </button>
-                            <button type="reset" class="btn btn-outline-secondary px-5 py-2 rounded-pill">
-                                Batal
-                            </button>
+                            <button type="submit" class="btn btn-primary px-5 py-2 shadow-sm rounded-pill">Simpan Data Pasien</button>
+                            <button type="reset" class="btn btn-outline-secondary px-5 py-2 rounded-pill">Batal</button>
                         </div>
                     </form>
                 </div>
             </div>
+
+            <div class="card shadow-sm">
+                <div class="card-header p-3 text-center">Daftar Pasien Terdaftar</div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="ps-4">Nama</th>
+                                    <th>Jenis Kelamin</th>
+                                    <th class="pe-4">Desa</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse($dataPasien as $pasien)
+                                    <tr>
+                                        <td class="ps-4">{{ $pasien->nama }}</td>
+                                        <td>{{ $pasien->jenisKelamin->deskripsi }}</td>
+                                        <td class="pe-4">{{ $pasien->desa->nama_desa ?? 'Tidak ada data' }}</td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="3" class="text-center py-4 text-muted">Belum ada data pasien.</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>

@@ -2,16 +2,19 @@
 
 namespace Database\Seeders;
 
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+class JenisKelaminSeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Run the database seeds.
      */
-public function run()
+    public function run(): void
+    {
 {
     \App\Models\Jenis_Kelamin::create(['deskripsi' => 'Laki-laki']);
     \App\Models\Jenis_Kelamin::create(['deskripsi' => 'Perempuan']);
 }
+    }
 }
