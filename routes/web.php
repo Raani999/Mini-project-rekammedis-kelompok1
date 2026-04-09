@@ -1,64 +1,24 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PasienController;
-use App\Http\Controllers\DesaController;
-use App\Http\Controllers\Jenis_KelaminController;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-// use App\Http\Controllers\KontakController;
+use App\Http\Controllers\PasienController; // Kita pakai logika simpan dari sini
+
 /*
-use App\Http\Controllers\KontakController;
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
 */
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
-Route::middleware(['auth'])->group(function () {
-    Route::get('/desa', [App\Http\Controllers\DesaController::class, 'index']);
+
+// Halaman utama langsung ke /desa
+Route::get('/', function () {
+    return redirect('/desa');
 });
-Route::get('/desa', [DesaController::class, 'index']);
-Route::get('/desa', [DesaController::class, 'index'])->middleware('auth');
-Route::resource('/desa', DesaController::class);
-Route::resource('/pasien', PasienController::class);
 
-// return new class extends Migration {
-//     /**
-//      * Run the migrations.
-//      */
-//     public function up(): void
-//     {
-//         Schema::create('flights', function (Blueprint $table) {
-//             $table->id();
-//             $table->string('name');
-//             $table->string('airline');
-//             $table->timestamps();
-//         });
-//     }
+Route::post('/pasien', [PasienController::class, 'store'])->name('pasien.store');
 
-//     public function down(): void
-//     {
-//         Schema::drop('flights');
-//     }
-// };
-// route:: get('/pasien', [PasienController::class, 'index'])->name('home');
-Route::get('/desa', [DesaController::class, 'index'])->name('home');
-//route:: post('/kontak', [KontakController::class, 'submit'])->name('kontak.submit');
-////route:: get('/kontak', [KontakController::class, 'form'])->name('kontak.form');
-//route:: get('/', [KontakController::class, 'home'])->name('home');
+// OR, if you are using a resource controller:
+Route::resource('pasien', PasienController::class);
 
-//Route::get('/profile', [ProfileController::class, 'index']);
-//Route::post('/profile', [ProfileController::class, 'store']);
-//Route::get('/', function () {
-   // return view('welcome');
-//});
-
-//Route::get('/hello', function () {
-  //  return view('hello');
-//});
+// Kita buat rute /desa TAPI isinya menjalankan fungsi di PasienController
+Route::get('/desa', [PasienController::class, 'index'])->name('desa.index');
+Route::post('/desa', [PasienController::class, 'store'])->name('desa.store');

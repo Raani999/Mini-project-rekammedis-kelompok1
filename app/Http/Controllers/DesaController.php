@@ -19,33 +19,32 @@ class DesaController extends Controller
 
 public function store(Request $request)
 {
-    // 1. Validasi data yang masuk
+    // 1. Validasi
     $request->validate([
         'nama' => 'required|string|max:255',
         'jenis_kelamin' => 'required',
         'desa_id' => 'required|exists:desa,id',
     ]);
 
-    // 2. Cari jenis kelamin berdasarkan deskripsi (Laki-laki/Perempuan)
+    // 2. Cari ID Jenis Kelamin
     $jenisKelamin = \App\Models\Jenis_Kelamin::where('deskripsi', $request->jenis_kelamin)->first();
 
-    // 3. Cek dulu, kalau jenisKelamin TIDAK ketemu, kasih pesan error
     if (!$jenisKelamin) {
-        return redirect()->back()->with('error', 'Pilihan jenis kelamin tidak valid di database.');
+        return redirect()->back()->with('error', 'Pilihan jenis kelamin tidak valid.');
     }
 
-    // 4. Kalau ketemu, baru simpan datanya
+    // 3. Simpan Data (PASTIKAN NAMA KOLOM SESUAI DATABASE)
     \App\Models\Pasien::create([
-        'nama_pasien' => $request->nama, // Sesuaikan dengan kolom di diagram Kak Nurul
+        'nama' => $request->nama, // Kalau di tabel kamu panggil $pasien->nama, pakai 'nama' di sini
         'jenis_kelamin_id' => $jenisKelamin->id,
         'desa_id' => $request->desa_id,
-        'tanggal_lahir' => now(), // Sementara pakai now() kalau belum ada inputnya
-        'usia' => 0,               // Sementara isi 0 dulu
+        'tanggal_lahir' => now(),
+        'usia' => 0,
         'nik' => '0000000000000000',
         'no_hp' => '-',
         'alamat' => '-',
     ]);
 
-    return redirect()->back()->with('success', 'Data pasien berhasil disimpan!');
+    return redirect()->route('desa.index')->with('success', 'Data pasien berhasil disimpan!');
 }
 }

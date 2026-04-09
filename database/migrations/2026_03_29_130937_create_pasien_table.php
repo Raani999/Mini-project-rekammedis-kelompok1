@@ -20,7 +20,7 @@ public function up(): void
             $table->string('alamat');
             $table->unsignedBigInteger('jenis_kelamin_id');
             $table->unsignedBigInteger('desa_id');
-         //   $table->timestamps();
+            $table->timestamps();
 
             // Foreign key ke jenis_kelamin
             $table->foreign('jenis_kelamin_id')->references('id')->on('jenis_kelamin')->onDelete('cascade');

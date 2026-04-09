@@ -2,28 +2,32 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Pasien extends Model
 {
-    use HasFactory;
+    // Hubungan ke Desa
+    public function desa()
+    {
+        return $this->belongsTo(Desa::class, 'desa_id');
+    }
 
-    // Nama tabel di database (sesuaikan kalau namamu 'pasien' atau 'pasiens')
-    protected $table = 'pasien';
-
-    // Kolom yang boleh diisi (Mass Assignment)
-    protected $fillable = ['nama', 'jenis_kelamin_id', 'desa_id'];
-
-    // Relasi ke Model Jenis_Kelamin
+    // Hubungan ke Jenis Kelamin
     public function jenisKelamin()
     {
         return $this->belongsTo(Jenis_Kelamin::class, 'jenis_kelamin_id');
     }
 
-    // Relasi ke Model Desa
-    public function desa()
-    {
-        return $this->belongsTo(Desa::class, 'desa_id');
-    }
+    protected $table = 'pasien';
+    public $timestamps = false; // Matikan kalau kolom created_at tidak ada di DB
+
+    protected $fillable = [
+        'nama',
+        'jenis_kelamin_id',
+        'desa_id',
+        'tanggal_lahir',
+        'usia',
+        'nik',
+        'alamat'
+    ];
 }
